@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Retro Elements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Touch Responsive Background */
+        #interactive-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #2c1810, #1a1410);
+            z-index: -1;
+            transition: background 0.3s ease;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.3), transparent);
+            pointer-events: none;
+            animation: fadeOut 2s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Parallax Layers */
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.1s ease-out;
+        }
+
+        .parallax-bg {
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 100px,
+                rgba(139, 111, 71, 0.05) 100px,
+                rgba(139, 111, 71, 0.05) 200px
+            );
+        }
+
+        /* Frosted Glassmorphism Header */
+        .glass-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(44, 24, 16, 0.6);
+            border-bottom: 2px solid rgba(212, 165, 116, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            padding: 30px 20px;
+        }
+
+        /* Logo Animation */
+        .animated-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 3em;
+            animation: logoSpin 4s ease-in-out infinite;
+            filter: sepia(80%) drop-shadow(0 0 10px rgba(212, 165, 116, 0.5));
+        }
+
+        @keyframes logoSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.1); }
+            50% { transform: rotate(0deg) scale(1); }
+            75% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #d4a574;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+            letter-spacing: 3px;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { text-shadow: 3px 3px 8px rgba(0,0,0,0.7), 0 0 20px rgba(212, 165, 116, 0.3); }
+            50% { text-shadow: 3px 3px 8px rgba(0,0,0,0.7), 0 0 40px rgba(212, 165, 116, 0.6); }
+        }
+
+        .gallery-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3em;
+            color: #c9a882;
+            font-style: italic;
+            text-align: center;
+            animation: subtitleFade 2s ease-in;
+        }
+
+        @keyframes subtitleFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-content {
+            position: relative;
+            padding: 60px 20px;
+            min-height: 100vh;
+        }
+
+        /* Frosted Glassmorphism Filter Controls */
+        .glass-controls {
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: rgba(61, 40, 23, 0.4);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 0 auto 60px;
+            max-width: 900px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .filter-title {
+            font-family: 'Playfair Display', serif;
+            color: #d4a574;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            font-family: 'Crimson Text', serif;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(212, 165, 116, 0.4);
+            background: rgba(44, 24, 16, 0.6);
+            backdrop-filter: blur(10px);
+            color: #c9a882;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(212, 165, 116, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .filter-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-btn.active {
+            background: rgba(61, 40, 23, 0.8);
+            color: #f4e4c1;
+            border-color: #d4a574;
+            box-shadow: 0 5px 20px rgba(212, 165, 116, 0.5);
+        }
+
+        .filter-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Parallax Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .photo-card {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-15px) rotateZ(-2deg) scale(1.05);
+        }
+
+        /* Frosted Glass Frame */
+        .glass-frame {
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            background: rgba(244, 228, 193, 0.85);
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 165, 116, 0.5);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .photo-card:hover .glass-frame {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(212, 165, 116, 0.4);
+            background: rgba(244, 228, 193, 0.95);
+        }
+
+        .corner-tape {
+            position: absolute;
+            width: 60px;
+            height: 25px;
+            background: rgba(220, 200, 160, 0.5);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .tape-top-left {
+            top: -8px;
+            left: -8px;
+            transform: rotate(-45deg);
+        }
+
+        .tape-top-right {
+            top: -8px;
+            right: -8px;
+            transform: rotate(45deg);
+        }
+
+        /* Sepia Shift Photo Content */
+        .photo-content {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border: 3px solid #8b6f47;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s ease;
+            filter: sepia(90%) contrast(110%);
+        }
+
+        .photo-card:hover .photo-content {
+            transform: scale(1.05);
+            filter: sepia(70%) contrast(120%) brightness(110%);
+        }
+
+        .photo-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
+            pointer-events: none;
+        }
+
+        .photo-icon {
+            font-size: 4em;
+            opacity: 0.7;
+            color: #2c1810;
+            margin-bottom: 10px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stamp-effect {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border: 3px dashed rgba(139, 111, 71, 0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(15deg);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 0.7em;
+            color: #8b6f47;
+            font-weight: bold;
+        }
+
+        .photo-card:hover .stamp-effect {
+            opacity: 1;
+            animation: stampPop 0.5s ease-out;
+        }
+
+        @keyframes stampPop {
+            0% { transform: rotate(15deg) scale(0); }
+            50% { transform: rotate(15deg) scale(1.2); }
+            100% { transform: rotate(15deg) scale(1); }
+        }
+
+        .photo-caption {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .photo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #2c1810;
+            margin-bottom: 5px;
+        }
+
+        .photo-year {
+            font-family: 'Crimson Text', serif;
+            font-size: 1em;
+            font-style: italic;
+            color: #5c4a33;
+        }
+
+        /* Frosted Glass Footer */
+        .glass-footer {
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: rgba(61, 40, 23, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 20px;
+            text-align: center;
+            margin: 80px auto 40px;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-footer p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5em;
+            font-style: italic;
+            color: #d4a574;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2em;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 30px;
+            }
+
+            .glass-controls {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Touch Responsive Background -->
+    <div id="interactive-background"></div>
+
+    <!-- Parallax Container -->
+    <div class="parallax-container">
+        <div class="parallax-layer parallax-bg" id="parallaxBg"></div>
+        
+        <!-- Frosted Glassmorphism Header with Logo Animation -->
+        <header class="glass-header">
+            <div class="animated-logo">
+                <div class="logo-icon">📷</div>
+                <h1 class="logo-text">VINTAGE GALLERY</h1>
+            </div>
+            <p class="gallery-subtitle">Experience Retro Elements in Modern Design</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Frosted Glassmorphism Filter Controls -->
+            <div class="glass-controls">
+                <h2 class="filter-title">Sepia Shift Filters</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="sepia(90%) contrast(110%)">
+                        <span>Classic Sepia</span>
+                    </button>
+                    <button class="filter-btn" data-filter="sepia(70%) brightness(110%) contrast(90%)">
+                        <span>Aged Paper</span>
+                    </button>
+                    <button class="filter-btn" data-filter="sepia(80%) saturate(50%) brightness(120%)">
+                        <span>Faded Memory</span>
+                    </button>
+                    <button class="filter-btn" data-filter="sepia(100%) contrast(120%) saturate(70%)">
+                        <span>Vintage Film</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Parallax Photo Grid -->
+            <div class="photo-grid" id="photoGrid">
+                <div class="photo-card" data-depth="0.2">
+                    <div class="glass-frame">
+                        <div class="corner-tape tape-top-left"></div>
+                        <div class="corner-tape tape-top-right"></div>
+                        <div class="photo-content" style="background: linear-gradient(135deg, #d4a574, #6b5437);">
+                            <div class="photo-icon">📷</div>
+                            <div class="stamp-effect">1925</div>
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="photo-title">Memory Lane</h3>
+                            <p class="photo-year">Est. 1925</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" data-depth="0.4">
+                    <div class="glass-frame">
+                        <div class="corner-tape tape-top-left"></div>
+                        <div class="corner-tape tape-top-right"></div>
+                        <div class="photo-content" style="background: linear-gradient(135deg, #c9a882, #6b5437);">
+                            <div class="photo-icon">⭐</div>
+                            <div class="stamp-effect">1932</div>
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="photo-title">Golden Days</h3>
+                            <p class="photo-year">Est. 1932</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" data-depth="0.3">
+                    <div class="glass-frame">
+                        <div class="corner-tape tape-top-left"></div>
+                        <div class="corner-tape tape-top-right"></div>
+                        <div class="photo-content" style="background: linear-gradient(135deg, #b89968, #6b5437);">
+                            <div class="photo-icon">💌</div>
+                            <div class="stamp-effect">1945</div>
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="photo-title">Love Letter</h3>
+                            <p class="photo-year">Est. 1945</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-card" data-depth="0.5">
+                    <div class="glass-frame">
+                        <div class="corner-tape tape-top-left"></div>
+                        <div class="corner-tape tape-top-right"></div>
+                        <div class="photo-content" style="background: linear-gradient(135deg, #8b6f47, #6b5437);">
+                            <div class="photo-icon">🕰️</div>
+                            <div class="stamp-effect">1958</div>
+                        </div>
+                        <div class="photo-caption">
+                            <h3 class="photo-title">Timeless</h3>
+                            <p class="photo-year">Est. 1958</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frosted Glass Footer -->
+            <footer class="glass-footer">
+                <p>"Memories preserved in amber tones, where every photograph tells a story untold..."</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Touch Responsive Background
+        const bg = document.getElementById('interactive-background');
+        let hue = 0;
+
+        function createCircle(x, y) {
+            const circle = document.createElement('div');
+            circle.className = 'bg-circle';
+            circle.style.left = x + 'px';
+            circle.style.top = y + 'px';
+            circle.style.width = '50px';
+            circle.style.height = '50px';
+            bg.appendChild(circle);
+            
+            setTimeout(() => circle.remove(), 2000);
+        }
+
+        // Mouse move - create circles more frequently
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.85) {
+                createCircle(e.clientX, e.clientY);
+            }
+        });
+
+        // Touch events
+        document.addEventListener('touchmove', (e) => {
+            if (Math.random() > 0.9) {
+                const touch = e.touches[0];
+                createCircle(touch.clientX, touch.clientY);
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            createCircle(touch.clientX, touch.clientY);
+            
+            // Change background gradient on touch
+            hue = (hue + 30) % 360;
+            bg.style.background = `radial-gradient(circle at ${touch.clientX}px ${touch.clientY}px, 
+                hsl(${hue}, 20%, 15%), #1a1410)`;
+        });
+
+        // Click effect
+        document.addEventListener('click', (e) => {
+            createCircle(e.clientX, e.clientY);
+        });
+
+        // Parallax Animation
+        const parallaxBg = document.getElementById('parallaxBg');
+        const photoCards = document.querySelectorAll('.photo-card');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 50;
+            const y = (e.clientY / window.innerHeight - 0.5) * 50;
+            
+            parallaxBg.style.transform = `translate(${x}px, ${y}px)`;
+            
+            photoCards.forEach(card => {
+                const depth = parseFloat(card.getAttribute('data-depth'));
+                const moveX = x * depth;
+                const moveY = y * depth;
+                card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // Scroll parallax
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            parallaxBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+
+        // Sepia Shift Filter Controls
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const photoContents = document.querySelectorAll('.photo-content');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                photoContents.forEach(photo => {
+                    photo.style.filter = filterValue;
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        photoCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
